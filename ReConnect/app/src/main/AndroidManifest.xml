@@ -3,6 +3,7 @@
     package="com.example.derekchiu.reconnect" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    s
 
     <application
         android:hardwareAccelerated="false"

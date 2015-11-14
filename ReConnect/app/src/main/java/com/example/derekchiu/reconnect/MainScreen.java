@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -26,26 +27,26 @@ import java.net.URL;
  */
 public class MainScreen extends Activity {
 
-    Intent prevIntent = getIntent();
     TextView nameView;
     ImageView idpic;
     String username, userid, useridNum;
     Bundle successExtras;
+    Bitmap bm;
+    boolean forward = true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
+        Intent prevIntent = getIntent();
         successExtras = prevIntent.getExtras();
 
-        idpic = (ImageView) findViewById(R.id.idpic);
         nameView = (TextView) findViewById(R.id.nameView);
-        if (successExtras != null) {
-            successExtras = prevIntent.getExtras();
-            userid = successExtras.getString("access_token");
-        }
-        Log.i("userid", userid);
+
+//        Log.i("userid", userid);
+        userid = prevIntent.getStringExtra("userid");
+        new getPicture().execute(userid);
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
 
@@ -58,14 +59,13 @@ public class MainScreen extends Activity {
                     public void onCompleted(JSONObject objects, GraphResponse response) {
                         Log.d("response", response.toString());
                         try {
-                            username = objects.getString("name");
-                            Log.d("name", username);
-                            nameView.setText(username);
-                            nameView.setTextSize(25);
-                            idpic.setImageBitmap(getFacebookProfile(userid));
+                            if (!false) {
+                                username = objects.getString("name");
+                                Log.d("name", username);
+                                nameView.setText(username);
+                                nameView.setTextSize(32);
+                            }
                         } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
@@ -77,10 +77,26 @@ public class MainScreen extends Activity {
         request.executeAsync();
     }
 
-    protected static Bitmap getFacebookProfile(String userid) throws IOException {
-        URL imageURL = new URL("https://graph.facebook.com/" + userid + "picture?type=large");
-        Bitmap bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
-        return bitmap;
+    private class getPicture extends AsyncTask<String, Void, Bitmap> {
+        @Override
+        protected Bitmap doInBackground(String... userid) {
+            try {
+//                URL imageURL = new URL("https://graph.facebook.com/" + userid + "/picture?type=large");
+                URL imageURL = new URL("https://graph.facebook.com/10208158470782200/picture?type=large");
+                Bitmap bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
+                return bitmap;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bm;
+        }
+
+        protected void onPostExecute(Bitmap bm) {
+            idpic = (ImageView) findViewById(R.id.idpic);
+            idpic.setImageBitmap(bm);
+        }
     }
 
 }
