@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView info;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    private TextView descrip;
+//    private Bundle successBundle;
 
 
     @Override
@@ -25,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        descrip = (TextView) findViewById(R.id.descrip);
+        descrip.setText("Here at reConnect we hope to bring Facebook friends into friends " +
+                "maybe more than friends, a friendship that extends more than a scroll through " +
+                "your newsfeed.");
 
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -33,12 +39,15 @@ public class MainActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                info.setText(
-                        "User ID: " +
+                Log.i("ID/Auth Token", "User ID: " +
                         loginResult.getAccessToken().getUserId() +
                         "\n " +
                         "Auth Token: " +
                         loginResult.getAccessToken().getToken());
+                Intent successScreen = new Intent(getApplicationContext(), MainScreen.class);
+                successScreen.putExtra("access_token", loginResult.getAccessToken().getToken());
+                successScreen.putExtra("userid", loginResult.getAccessToken().getUserId());
+                startActivity(successScreen);
             }
 
             @Override
