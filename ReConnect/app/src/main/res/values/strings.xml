@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">ReConnect</string>
     <string name="facebook_app_id">1022570294462177</string>
+    <string name="action_settings">Settings</string>
+
 </resources>
