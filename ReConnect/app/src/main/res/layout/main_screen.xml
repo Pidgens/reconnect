@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,92 +9,66 @@
     android:fitsSystemWindows="true"
     tools:context=".MainScreen">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/tasktoolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-        </android.support.design.widget.AppBarLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/nameView"
-            android:gravity="center"
-            android:singleLine="true"
-            android:textSize="25dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="15dp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/idpic"
-            android:layout_below="@+id/nameView"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_above="@+id/button"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="40dp"
-            android:layout_marginTop="30dp"/>
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="310dp"
+        android:layout_marginBottom="70dp">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Reconnect"
+            android:text="Create Schedule"
             android:id="@+id/button"
-            android:layout_marginBottom="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="30dp"
-            android:textSize="16dp"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Browse"
+            android:text="Search Schedule"
             android:id="@+id/button2"
-            android:layout_alignTop="@+id/button"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="30dp"
-            android:layout_marginRight="30dp"
-            android:paddingLeft="20dp"
-            android:textSize="16dp"
-            android:paddingRight="20dp"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp" />
 
-    </RelativeLayout>
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Set Schedule"
+            android:id="@+id/button3"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp" />
+    </LinearLayout>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/idpic"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="60dp"
+        android:layout_alignParentEnd="true"
+        android:minHeight="225dp" />
 
-</android.support.design.widget.CoordinatorLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/nameView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:gravity="top|center"
+        android:layout_marginTop="15dp" />
+</RelativeLayout>
 

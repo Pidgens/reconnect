@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +15,6 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,9 +29,10 @@ public class MainScreen extends Activity {
 
     TextView nameView;
     ImageView idpic;
-    String username, userid, useridNum;
+    String username, userid, useridNum, link;
     Bundle successExtras;
     Bitmap bm;
+    Button create, set, search;
     boolean forward = true;
 
 
@@ -46,7 +47,8 @@ public class MainScreen extends Activity {
 
 //        Log.i("userid", userid);
         userid = prevIntent.getStringExtra("userid");
-        new getPicture().execute(userid);
+        Log.i("userid", userid);
+//        new getPicture().execute(userid);
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
 
@@ -61,9 +63,10 @@ public class MainScreen extends Activity {
                         try {
                             if (!false) {
                                 username = objects.getString("name");
-                                Log.d("name", username);
-                                nameView.setText(username);
-                                nameView.setTextSize(32);
+                                link = objects.getString("link");
+                                new getPicture().execute(objects.getString("id"));
+                                nameView.setText("Hey " + username.split(" ")[0] + "!");
+                                nameView.setTextSize(28);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -77,12 +80,12 @@ public class MainScreen extends Activity {
         request.executeAsync();
     }
 
-    private class getPicture extends AsyncTask<String, Void, Bitmap> {
+    protected class getPicture extends AsyncTask<String, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... userid) {
             try {
 //                URL imageURL = new URL("https://graph.facebook.com/" + userid + "/picture?type=large");
-                URL imageURL = new URL("https://graph.facebook.com/10208158470782200/picture?type=large");
+                URL imageURL = new URL("https://graph.facebook.com/" + userid[0] + "/picture?type=large");
                 Bitmap bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
                 return bitmap;
             } catch (MalformedURLException e) {
